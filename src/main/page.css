@@ -1,0 +1,101 @@
+/* Injected into Deezer's page. Size, spacing and hover of the button come from Deezer's own classes (copied from
+   the favorite button); these rules only set the state colours. The id selector wins over Deezer's classes. */
+
+/* No inline baseline gap: it pushed the icon up inside the round hover overlay. */
+#dzc-button svg {
+  display: block;
+}
+
+#dzc-button[data-state="absent"] {
+  color: #a238ff;
+}
+
+#dzc-button[data-state="present"] {
+  color: #2fb67c;
+}
+
+#dzc-button[data-state="error"] {
+  color: #e5484d;
+}
+
+#dzc-button[data-state="idle"] {
+  opacity: 0.35;
+  cursor: default;
+}
+
+#dzc-button[data-state="loading"] svg {
+  animation: dzc-spin 0.8s linear infinite;
+  opacity: 0.7;
+}
+
+@keyframes dzc-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Fallback when Deezer's markup changes and there is no class to copy. */
+#dzc-button.dzc-standalone {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+}
+
+#dzc-button.dzc-standalone:hover:not(:disabled) {
+  background: rgba(128, 128, 128, 0.18);
+}
+
+/* Toast in the extension's settings style (shadcn/ui Luma): rounded, quiet ring, soft shadow. */
+#dzc-toast {
+  position: fixed;
+  z-index: 2147483647;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transform: translate(-50%, 6px) scale(0.98);
+  max-width: min(380px, calc(100vw - 16px));
+  padding: 10px 14px;
+  border-radius: 16px;
+  background: #18181b;
+  color: #fafafa;
+  font:
+    500 13px/1.35 "Inter Variable",
+    Inter,
+    system-ui,
+    -apple-system,
+    sans-serif;
+  box-shadow:
+    0 0 0 1px rgb(255 255 255 / 0.08),
+    0 10px 30px rgb(0 0 0 / 0.35);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity 0.18s ease,
+    transform 0.18s ease;
+}
+
+#dzc-toast::before {
+  content: "";
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #2fb67c;
+}
+
+#dzc-toast.dzc-visible {
+  opacity: 1;
+  transform: translate(-50%, 0) scale(1);
+}
+
+#dzc-toast.dzc-error::before {
+  background: #e5484d;
+}

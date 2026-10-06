@@ -1,0 +1,252 @@
+{
+  "extName": {
+    "message": "Deezer Collection"
+  },
+  "extDescription": {
+    "message": "Un clic pour ajouter le titre en cours sur Deezer à votre collection, seulement si vous ne l'avez pas déjà."
+  },
+  "buttonChecking": {
+    "message": "Vérification des collections…"
+  },
+  "buttonUnavailable": {
+    "message": "Collections indisponibles : $P1$ (cliquer pour réessayer)",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "buttonIdle": {
+    "message": "Aucun titre en cours"
+  },
+  "buttonPresent": {
+    "message": "Déjà dans « $P1$ »",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "buttonAdd": {
+    "message": "Ajouter à « $P1$ »",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "buttonShortcut": {
+    "message": "$P1$ ($P2$)",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "toastNothingPlaying": {
+    "message": "Aucun titre en cours de lecture."
+  },
+  "toastAdded": {
+    "message": "« $P1$ » ajouté à « $P2$ »",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "toastCreated": {
+    "message": "« $P1$ » est pleine : « $P2$ » créée",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "toastError": {
+    "message": "Erreur : $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "likedTracks": {
+    "message": "Coups de cœur"
+  },
+  "errorNotLoggedIn": {
+    "message": "non connecté à Deezer"
+  },
+  "errorNoSeries": {
+    "message": "aucune playlist « $P1$ …N »",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "errorNoTarget": {
+    "message": "choisissez une playlist cible dans les réglages"
+  },
+  "settingsTitle": {
+    "message": "Réglages"
+  },
+  "statusSynced": {
+    "message": "Synchronisé $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "statusNever": {
+    "message": "Ouvrez Deezer une fois pour charger vos playlists."
+  },
+  "openDeezer": {
+    "message": "Ouvrir Deezer"
+  },
+  "syncNow": {
+    "message": "Synchroniser"
+  },
+  "statusTarget": {
+    "message": "Les nouveaux titres vont dans"
+  },
+  "statusSummary": {
+    "message": "$P1$ collections · $P2$ titres",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "tracksCount": {
+    "message": "$P1$ titres",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "statusError": {
+    "message": "Deezer a répondu : $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "sectionCollections": {
+    "message": "Collections"
+  },
+  "sectionCollectionsDescription": {
+    "message": "Quelles playlists forment votre collection, et où vont les nouveaux titres."
+  },
+  "modeSeries": {
+    "message": "Série numérotée"
+  },
+  "modePlaylists": {
+    "message": "Playlists choisies"
+  },
+  "prefixLabel": {
+    "message": "Les noms des playlists commencent par"
+  },
+  "prefixDescription": {
+    "message": "Reconnaît « $P1$ 1 », « $P1$ Rock 12 »… Le plus grand numéro reçoit les nouveaux titres.",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "seriesNone": {
+    "message": "Aucune de vos playlists ne correspond pour l'instant."
+  },
+  "targetBadge": {
+    "message": "Cible"
+  },
+  "targetLabel": {
+    "message": "Ajouter les nouveaux titres à"
+  },
+  "targetPlaceholder": {
+    "message": "Choisir une playlist"
+  },
+  "checkLabel": {
+    "message": "Chercher les doublons dans"
+  },
+  "checkDescription": {
+    "message": "Un titre déjà présent dans l'une de ces playlists n'est pas ajouté à nouveau."
+  },
+  "sectionDuplicates": {
+    "message": "Doublons"
+  },
+  "favoritesLabel": {
+    "message": "Compter les coups de cœur"
+  },
+  "favoritesDescription": {
+    "message": "Un titre en coup de cœur compte comme déjà dans la collection."
+  },
+  "isrcLabel": {
+    "message": "Même enregistrement, autre album"
+  },
+  "isrcDescription": {
+    "message": "Un single et sa version album comptent comme le même titre."
+  },
+  "sectionFull": {
+    "message": "Quand la cible est pleine"
+  },
+  "rolloverLabel": {
+    "message": "Créer la playlist suivante automatiquement"
+  },
+  "rolloverDescription": {
+    "message": "Crée « $P2$ » quand « $P1$ » atteint ce nombre de titres.",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "rolloverAtLabel": {
+    "message": "Titres par playlist"
+  },
+  "sectionShortcut": {
+    "message": "Raccourci clavier"
+  },
+  "shortcutLabel": {
+    "message": "Ajouter avec un raccourci"
+  },
+  "shortcutDescription": {
+    "message": "Fonctionne dans l'onglet Deezer, hors des champs de texte."
+  },
+  "shortcutRecord": {
+    "message": "Modifier"
+  },
+  "shortcutRecording": {
+    "message": "Appuyez sur les touches…"
+  },
+  "sectionNotifications": {
+    "message": "Notifications"
+  },
+  "toastsLabel": {
+    "message": "Confirmer chaque ajout"
+  },
+  "toastsDescription": {
+    "message": "Affiche un court message au-dessus du lecteur."
+  },
+  "allSettings": {
+    "message": "Tous les réglages"
+  }
+}

@@ -1,32 +1,63 @@
 # Deezer Collection
 
-Extension Chrome (Manifest V3) qui ajoute un bouton dans la barre de lecture de Deezer Web, juste après le cœur.
-Un clic ajoute le titre en cours à votre dernière playlist « Collection N », seulement s'il n'est dans aucune de vos collections.
+Chrome extension for **Deezer Web**: a button next to the heart in the player bar adds the track playing to your
+collection, only if you don't have it yet.
 
-## États du bouton
+## Button states
 
-| Couleur | Signification |
+| Colour | Meaning |
 |---|---|
-| Violet | Absent de toutes les collections : un clic l'ajoute à la dernière (ex. « Collection Malo 10 ») |
-| Vert | Déjà présent : le survol indique dans quelle collection |
-| Gris | Aucun titre en cours (podcast, radio, rien en lecture) |
-| Rouge | Erreur de chargement : un clic relance |
+| Purple | Not in your collection: a click (or the keyboard shortcut) adds it to the target playlist |
+| Green | Already collected: hover to see where |
+| Grey | Nothing playing (podcast, radio, nothing at all) |
+| Red | Collections couldn't load: hover for the reason, click to retry |
 
-## Installation
+## Install
 
-1. Ouvrir `chrome://extensions` et activer le **Mode développeur**
-2. **Charger l'extension non empaquetée** et choisir ce dossier
-3. Recharger l'onglet Deezer
+1. Run `npm install && npm run build`, or download the zip from a release and unzip it.
+2. Open `chrome://extensions` and turn on **Developer mode**.
+3. Click **Load unpacked** and select the `dist` folder (or the unzipped folder).
+4. Reload the Deezer tab.
 
-## Fonctionnement
+Available in English and French, following your browser's language.
 
-- Les collections sont les playlists dont vous êtes propriétaire et dont le titre commence par « Collection » et finit par un numéro. La cible est celle qui a le plus grand numéro.
-- Au chargement, l'extension lit le contenu de toutes les collections (environ 2 s pour 10 000 titres), puis rafraîchit toutes les 5 minutes.
-- Un titre compte comme présent s'il a le même ID Deezer, ou le même ISRC (même enregistrement publié sur un autre album).
-- Avant chaque ajout, les collections sont relues pour éviter un doublon ajouté depuis ailleurs.
-- L'extension utilise l'API interne de Deezer (`/ajax/gw-light.php`) avec votre session : aucune clé ni connexion supplémentaire.
+## Settings
 
-## Limites
+Click the extension icon for the target playlist and sync status, then **All settings**.
 
-- L'API interne et la barre de lecture (`#page_player [data-testid^="add_to_favorite_button"]`) peuvent changer avec les mises à jour de Deezer.
-- Aucune limite de taille : quand une collection est « pleine » à vos yeux, créez « Collection … 11 » et elle deviendra la cible.
+- **Collections**, two ways to organise them:
+  - **Numbered series**: playlists whose name starts with a prefix you choose (default "Collection") and ends with a
+    number, e.g. "Collection 1", "Collection Rock 12". The highest number receives new tracks.
+  - **Chosen playlists**: pick the target playlist, and which playlists to check for duplicates.
+- **Duplicates**: also count liked tracks; treat the same recording on another album (same ISRC) as a duplicate.
+- **When the target is full** (numbered series): create the next playlist automatically, e.g. "Collection 13" once
+  "Collection 12" holds 2,000 tracks. The new playlist gets the same visibility as the previous one.
+- **Keyboard shortcut**: add the playing track without clicking (default ⌥⇧C / Alt+Shift+C), ignored in text fields.
+- **Notifications**: show or hide the confirmation after each add.
+
+The settings page lists your playlists from what the Deezer tab last loaded: open Deezer once, or click **Sync now**.
+
+## How it works
+
+- `main.js` runs in Deezer's page (it needs the player and your session) and calls Deezer's internal API
+  (`/ajax/gw-light.php`) like the web app does: no key or extra login.
+- `bridge.js` runs in the extension's isolated world and relays settings and translations to it, since Deezer's page
+  can't use `chrome.storage`.
+- Before each add, collections are read again so a track added from elsewhere isn't duplicated. They are also refreshed
+  every 5 minutes.
+- Settings are synced with your Chrome account; the playlist list shown in the settings is a local cache.
+
+## Development
+
+React, Tailwind CSS and [shadcn/ui](https://ui.shadcn.com) (Luma style), bundled by Vite into `dist/`.
+
+```bash
+npm install
+npm run build
+```
+
+## Limitations
+
+- Deezer's internal API and player markup (`#page_player [data-testid^="add_to_favorite_button"]`) can change with
+  Deezer updates.
+- Only playlists you own are listed.

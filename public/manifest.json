@@ -1,0 +1,53 @@
+{
+  "manifest_version": 3,
+  "name": "__MSG_extName__",
+  "version": "2.0.0",
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAqxFCOmhaZmecY6wdpjQHBWGAMwM6bzmj1ZAKoNuYn9td6m2uD5CB1zTB4j2+xRRS83yyyXXDAjaURXKkvWorNRadZVd6Cp4l32Ky9B1oq3fSWZaDRIl7P7mijlArAG495Ejn0gg59mQGnKzSTKuHVqQWZv99Sv3OyDVISXdARqH0wDW3pl8Gto0qyor1c0r0EVwy7gFVW6Dj/UYltRRDA6tqmshJCmeYhiG8xywR1kRxQiXmd5SYL1x+7znRFva8hifak+irnBGeeFMA9q5oCM+Dyf/eYQldN8Yp4cFD7l+yiuOPxgzVelQfRk3UhmrqQzSLbKqRAOjxpWjaFXFOtQIDAQAB",
+  "description": "__MSG_extDescription__",
+  "default_locale": "en",
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "action": {
+    "default_title": "__MSG_extName__",
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png"
+    }
+  },
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": true
+  },
+  "permissions": [
+    "storage"
+  ],
+  "host_permissions": [
+    "https://www.deezer.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.deezer.com/*"
+      ],
+      "js": [
+        "bridge.js"
+      ],
+      "run_at": "document_start"
+    },
+    {
+      "matches": [
+        "https://www.deezer.com/*"
+      ],
+      "js": [
+        "main.js"
+      ],
+      "run_at": "document_idle",
+      "world": "MAIN"
+    }
+  ]
+}
