@@ -24,6 +24,7 @@ const REFRESH_MS = 5 * 60 * 1000
 const BUTTON_ID = "dzc-button"
 const WRAPPER_ID = "dzc-wrapper"
 const TOAST_ID = "dzc-toast"
+const TOOLTIP_ID = "dzc-tooltip"
 
 // Stroke icons matching Deezer's player icons: 24px viewBox, 16px wide like Deezer's "+",
 // 1.33px strokes. The list glyph is top-heavy, so it sits 1 unit lower (5–21) to look centred.
@@ -245,8 +246,13 @@ function createButton() {
   button.addEventListener("click", (event) => {
     event.preventDefault()
     event.stopPropagation()
+    hideTooltip()
     onActivate()
   })
+  button.addEventListener("mouseenter", () => showTooltip(button))
+  button.addEventListener("focus", () => showTooltip(button))
+  button.addEventListener("mouseleave", hideTooltip)
+  button.addEventListener("blur", hideTooltip)
   return button
 }
 
@@ -255,10 +261,12 @@ function render() {
   const button = ensureButton()
   if (!button) return
   const { state, label } = getState()
-  if (button.dataset.state === state && button.title === label) return
+  if (button.dataset.state === state && button.dataset.label === label) return
   button.dataset.state = state
-  button.title = label
+  // The label is shown by our tooltip (see below), not the browser's `title`.
+  button.dataset.label = label
   button.setAttribute("aria-label", label)
+  updateTooltip(label)
   button.disabled = state === "idle"
   // Mirror the elements wrapping Deezer's icon inside its button, and reuse the icon's class,
   // so ours gets the same box and alignment. The inline style keeps our stroke rendering
@@ -289,12 +297,56 @@ function render() {
 }
 
 // ---------------------------------------------------------------------------
+// Tooltip, drawn like Deezer's own player tooltips (styles in page.css)
+// ---------------------------------------------------------------------------
+
+const TOOLTIP_DELAY_MS = 300
+let tooltipTimer: ReturnType<typeof setTimeout> | undefined
+
+function tooltipEl() {
+  let el = document.getElementById(TOOLTIP_ID)
+  if (!el) {
+    el = document.createElement("div")
+    el.id = TOOLTIP_ID
+    el.setAttribute("role", "tooltip")
+    el.setAttribute("aria-hidden", "true") // the button's aria-label already says it
+    document.body.appendChild(el)
+  }
+  return el
+}
+
+function showTooltip(button: HTMLElement) {
+  clearTimeout(tooltipTimer)
+  tooltipTimer = setTimeout(() => {
+    if (!button.isConnected) return
+    const el = tooltipEl()
+    el.textContent = button.dataset.label ?? ""
+    const rect = button.getBoundingClientRect()
+    el.style.left = `${rect.left + rect.width / 2}px`
+    el.style.bottom = `${window.innerHeight - rect.top + 10}px`
+    el.classList.add("dzc-visible")
+  }, TOOLTIP_DELAY_MS)
+}
+
+function hideTooltip() {
+  clearTimeout(tooltipTimer)
+  document.getElementById(TOOLTIP_ID)?.classList.remove("dzc-visible")
+}
+
+/** Keeps an open tooltip in step with the button (e.g. "Checking…" turning into "Already in …"). */
+function updateTooltip(label: string) {
+  const el = document.getElementById(TOOLTIP_ID)
+  if (el?.classList.contains("dzc-visible")) el.textContent = label
+}
+
+// ---------------------------------------------------------------------------
 // Toast
 // ---------------------------------------------------------------------------
 
 let toastTimer: ReturnType<typeof setTimeout> | undefined
 
 function toast(message: string, isError = false) {
+  hideTooltip()
   let el = document.getElementById(TOAST_ID)
   if (!el) {
     el = document.createElement("div")

@@ -51,6 +51,46 @@
   background: rgba(128, 128, 128, 0.18);
 }
 
+/* Same look as Deezer's player tooltips (Chakra): white bubble, 12px Inter, 12px radius, arrow below,
+   centred 10px above the button, small rise on appear. */
+#dzc-tooltip {
+  position: fixed;
+  z-index: 4001;
+  max-width: 320px;
+  padding: 12px;
+  border-radius: 12px;
+  background: #fff;
+  color: #000;
+  font:
+    450 12px/16px Inter,
+    Arial,
+    sans-serif;
+  white-space: normal;
+  transform: translate(-50%, 2px);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity 0.12s ease,
+    transform 0.12s ease;
+}
+
+#dzc-tooltip::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  border-radius: 2px 0;
+  background: inherit;
+  transform: translateX(-50%) rotate(45deg);
+}
+
+#dzc-tooltip.dzc-visible {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
 /* Toast in the extension's settings style (shadcn/ui Luma): rounded, quiet ring, soft shadow. */
 #dzc-toast {
   position: fixed;
