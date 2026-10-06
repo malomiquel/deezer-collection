@@ -6,9 +6,7 @@
   display: block;
 }
 
-#dzc-button[data-state="absent"] {
-  color: #a238ff;
-}
+/* Not collected yet: no colour of our own, so it matches Deezer's other player icons (white on the dark player). */
 
 #dzc-button[data-state="present"] {
   color: #2fb67c;

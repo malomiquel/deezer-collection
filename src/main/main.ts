@@ -175,8 +175,12 @@ function getFavoriteButton() {
   )
 }
 
-// Deezer puts each player action in its own wrapper, which carries the spacing and vertical
+const isOurs = (el: Element | null) =>
+  !!el && (el.id === BUTTON_ID || el.id === WRAPPER_ID)
+
+// Deezer may put each player action in its own wrapper, which carries the spacing and vertical
 // alignment: mirror the favorite button's wrapper and classes instead of styling by hand.
+// The button goes right after Deezer's "+" (add to playlist), which follows the heart.
 function ensureButton() {
   const favorite = getFavoriteButton()
   if (!favorite) return null
@@ -185,16 +189,19 @@ function ensureButton() {
     (document.getElementById(BUTTON_ID) as HTMLButtonElement | null) ??
     createButton()
   const parent = favorite.parentElement
-  const anchor =
+  const favoriteSlot =
     parent && parent.childElementCount === 1 && parent.id !== "page_player"
       ? parent
       : favorite
+  let plusSlot = favoriteSlot.nextElementSibling
+  while (isOurs(plusSlot)) plusSlot = plusSlot!.nextElementSibling
+  const anchor = plusSlot ?? favoriteSlot
 
   let container: HTMLElement = button
-  if (anchor !== favorite) {
+  if (favoriteSlot !== favorite) {
     let wrapper = document.getElementById(WRAPPER_ID)
     if (!wrapper) {
-      wrapper = anchor.cloneNode(false) as HTMLElement
+      wrapper = favoriteSlot.cloneNode(false) as HTMLElement
       wrapper.id = WRAPPER_ID
       wrapper.removeAttribute("data-testid")
     }

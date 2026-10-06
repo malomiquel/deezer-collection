@@ -1,13 +1,13 @@
 # Deezer Collection
 
-Chrome extension for **Deezer Web**: a button next to the heart in the player bar adds the track playing to your
-collection, only if you don't have it yet.
+Chrome extension for **Deezer Web**: a button right after the heart and "+" in the player bar adds the track playing
+to your collection, only if you don't have it yet.
 
 ## Button states
 
 | Colour | Meaning |
 |---|---|
-| Purple | Not in your collection: a click (or the keyboard shortcut) adds it to the target playlist |
+| White | Not in your collection: a click (or the keyboard shortcut) adds it to the target playlist |
 | Green | Already collected: hover to see where |
 | Grey | Nothing playing (podcast, radio, nothing at all) |
 | Red | Collections couldn't load: hover for the reason, click to retry |
