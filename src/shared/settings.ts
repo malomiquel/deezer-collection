@@ -83,12 +83,12 @@ export function withDefaults(stored: Partial<Settings> | undefined): Settings {
 const escapeRegExp = (text: string) =>
   text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
 
-/** Matches "<prefix> … <number>" and captures the number, e.g. "Collection Malo 10" → 10. */
+/** Matches "<prefix> … <number>" and captures the number, e.g. "Collection Rock 10" → 10. */
 export function seriesPattern(prefix: string) {
   return new RegExp(`^${escapeRegExp(prefix.trim())}\\b.*?(\\d+)\\s*$`, "i")
 }
 
-/** "Collection Malo 09" → "Collection Malo 10" (keeps zero padding). */
+/** "Collection Rock 09" → "Collection Rock 10" (keeps zero padding). */
 export function nextInSeries(title: string) {
   return title.replace(
     /(\d+)(\s*)$/,
